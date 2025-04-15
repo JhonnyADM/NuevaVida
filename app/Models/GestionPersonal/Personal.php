@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Models\GestionPersonal;
+
+use App\Models\GestionUSuario\Usuario;
+use Illuminate\Database\Eloquent\Model;
+
+class Personal extends Model
+{
+    protected $table = 'personal';
+    protected $fillable = [
+        'nombre',
+        'apellido',
+        'telefono',
+    ];
+    public function medico()
+    {
+        return $this->hasOne(Veterinario::class);
+    }
+
+    public function cliente()
+    {
+        return $this->hasOne(Cliente::class);
+    }
+
+    public function pasante()
+    {
+        return $this->hasOne(Pasante::class);
+    }
+
+    public function voluntario()
+    {
+        return $this->hasOne(Voluntario::class);
+    }
+    public function usuario()
+    {
+        return $this->hasOne(Usuario::class);
+    }
+}
