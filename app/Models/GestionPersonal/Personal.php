@@ -3,15 +3,18 @@
 namespace App\Models\GestionPersonal;
 
 use App\Models\GestionUSuario\Usuario;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Personal extends Model
 {
+    use HasFactory;
     protected $table = 'personal';
     protected $fillable = [
         'nombre',
         'apellido',
         'telefono',
+        'tipo',
     ];
     public function medico()
     {

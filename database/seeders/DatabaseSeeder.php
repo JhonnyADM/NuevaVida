@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\GestionPersonal\Personal;
+use App\Models\GestionUSuario\Usuario;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,9 +18,19 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $personal = Personal::create([
+            'nombre' => 'Carlos',
+            'apellido' => 'Martínez',
+            'telefono' => '1122334455',
+            'tipo' => 'superadmin',
+        ]);
+
+        // Crear un registro de Usuario relacionado con el Personal creado
+        Usuario::create([
+            'codigo' => 'ADM001',
+            'personal_id' => $personal->id,  // Asociamos al Personal creado
+            'password' => Hash::make('adm123456'),  // Encriptamos el password
+            'estado' => true,  // Estado del usuario
         ]);
     }
 }
