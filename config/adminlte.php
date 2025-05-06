@@ -137,7 +137,7 @@ return [
     'usermenu_header' => true,
     'usermenu_header_class' => 'bg-primary',
     'usermenu_image' => false,
-    'usermenu_desc' => false,
+    'usermenu_desc' => true,
     'usermenu_profile_url' => false,
 
     /*
@@ -305,10 +305,7 @@ return [
             'text' => 'search',
             'topnav_right' => true,
         ],
-        [
-            'type' => 'fullscreen-widget',
-            'topnav_right' => true,
-        ],
+
 
         // Sidebar items:
         [
@@ -320,13 +317,7 @@ return [
             'url' => 'admin/blog',
             'can' => 'manage-blog',
         ],
-        [
-            'text' => 'pages',
-            'url' => 'admin/pages',
-            'icon' => 'far fa-fw fa-file',
-            'label' => 4,
-            'label_color' => 'success',
-        ],
+
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
@@ -338,79 +329,65 @@ return [
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
         ],
+
         [
-            'text' => 'multilevel',
-            'icon' => 'fas fa-fw fa-share',
+            'text' => 'GESTIÓN DE PERSONAL',
+            'icon' => 'fas fa-users-cog',
+
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url' => '#',
+                    'text' => 'Registro Personal',
+                    'icon' => 'fas fa-users',
+                    'url'  => 'personal',
                 ],
                 [
-                    'text' => 'level_one',
-                    'url' => '#',
+                    'text' => 'Gestión Personal Médico',
+                    'icon' => 'fas fa-user-md',
+                    'url'  => 'medico',
+                ],
+
+                [
+                    'text' => 'Gestión Personal Atención',
+                    'icon' => 'fas fa-headset',
+                    'url' => 'atencion',
+                ],
+
+                [
+                    'text' => 'Gestión Personal Pasante',
+                    'icon' => 'fas fa-user-graduate',
+                    'url'  => 'personal/pasante',
+                ],
+
+                [
+                    'text' => 'Gestión Personal Voluntario',
+                    'icon' => 'fas fa-hands-helping',
+                    'url'  => 'personal/voluntario',
+                ],
+
+                [
+                    'text' => 'Gestión Personal Cliente',
+                    'icon' => 'fas fa-user',
                     'submenu' => [
                         [
-                            'text' => 'level_two',
-                            'url' => '#',
+                            'text' => 'Gestionar Cliente',
+                            'url'  => 'personal/cliente',
+                            'icon' => 'fas fa-user-tag',
                         ],
                         [
-                            'text' => 'level_two',
-                            'url' => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                            ],
+                            'text' => 'Gestionar Mascota',
+                            'url'  => 'personal/cliente/mascotas',
+                            'icon' => 'fas fa-dog',
+                        ],
+                        [
+                            'text' => 'Gestionar Raza',
+                            'url'  => 'personal/cliente/mascotas',
+                            'icon' => 'fas fa-dog',
                         ],
                     ],
                 ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
             ],
         ],
-        ['header' => 'labels'],
-        [
-            'text' => 'important',
-            'icon_color' => 'red',
-            'url' => '#',
-        ],
-        [
-            'text' => 'warning',
-            'icon_color' => 'yellow',
-            'url' => '#',
-        ],
-        [
-            'text' => 'information',
-            'icon_color' => 'cyan',
-            'url' => '#',
-        ],
-        [
-            'text' => 'GEstion de Personal',
-            'icon' => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'Personal General',
-                    'url'  => 'personal',
-                    'icon' => 'fas fa-users',
 
-                ],
-                [
-                    'text' => 'Personal Atencion',
-                    'url'  => 'atencion',
-                    'icon' => 'fas fa-users',
-                ],
-
-            ],
-
-        ],
 
     ],
 

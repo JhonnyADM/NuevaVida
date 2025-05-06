@@ -14,17 +14,17 @@
             @method('PUT')
 
             <div class="form-group">
-                <label for="personal_id">Personal</label>
-                <select name="personal_id" class="form-control" required>
-                    @foreach($personales as $personal)
-                        <option value="{{ $personal->id }}"
-                            {{ $personal->id == $atencion->personal_id ? 'selected' : '' }}>
-                            {{ $personal->nombre }} {{ $personal->apellido }}
-                        </option>
-                    @endforeach
-                </select>
+                <label for="nombre">Nombre</label>
+                <input type="text" name="nombre" class="form-control" value="{{ $atencion->personal->nombre}}" required>
             </div>
-
+            <div class="form-group">
+                <label for="apellido">Apellido</label>
+                <input type="text" name="apellido" class="form-control" value="{{ $atencion->personal->apellido}}" required>
+            </div>
+            <div class="form-group">
+                <label for="celular">Celular</label>
+                <input type="text" name="celular" class="form-control" value="{{ $atencion->personal->telefono}}" required>
+            </div>
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" name="email" class="form-control" value="{{ $atencion->email }}" required>

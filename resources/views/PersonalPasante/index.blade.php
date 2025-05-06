@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Listado de Personal de Atencion')
+@section('title', 'Listado de Personal Pasante')
 
 @section('content_header')
-    <h1>Listado de Personal de Atencion </h1>
+    <h1>Listado de Personal Pasante </h1>
 @endsection
 
 @section('content')
@@ -22,7 +22,7 @@
     @endif
 
     <div class="card">
-       
+
 
         <div class="card-body">
             <table class="table table-striped table-bordered">
@@ -30,21 +30,19 @@
                     <tr>
                         <th>Nombre</th>
                         <th>Apellido</th>
-                        <th>Cargo</th>
-                        <th>Email</th>
+                        <th>Estado</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($atencion as $p)
+                    @foreach ($pasante as $p)
                         <tr>
                             <td>{{ $p->personal->nombre }}</td>
                             <td>{{ $p->personal->apellido }}</td>
-                            <td>{{ $p->cargo }}</td>
-                            <td>{{ $p->email }}</td>
+                            <td>{{$p->estado ? 'Activo' : 'Inactivo'}}</td>
                             <td>
-                                <a href="{{ route('atencion.edit', $p->id) }}" class="btn btn-sm btn-warning">Editar</a>
+                                <a href="{{ route('pasante.edit', $p->id) }}" class="btn btn-sm btn-warning">Editar</a>
 
-                                <form action="{{ route('atencion.destroy', $p->id) }}" method="POST"
+                                <form action="{{ route('pasante.destroy', $p->id) }}" method="POST"
                                     style="display:inline-block;">
                                     @csrf
                                     @method('DELETE')
@@ -60,5 +58,5 @@
     </div>
 @endsection
 <div class="d-flex justify-content-center">
-    {{ $atencion->links() }}
+    {{ $pasante->links() }}
 </div>
