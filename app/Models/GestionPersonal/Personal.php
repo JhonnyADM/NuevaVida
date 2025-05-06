@@ -16,9 +16,13 @@ class Personal extends Model
         'telefono',
         'tipo',
     ];
-    public function medico()
+    public function veterinario()
     {
         return $this->hasOne(Veterinario::class);
+    }
+    public function atencion()
+    {
+        return $this->hasOne(Atencion::class);
     }
 
     public function cliente()

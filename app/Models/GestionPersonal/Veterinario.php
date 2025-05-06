@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Veterinario extends Model
 {
+    protected $table = 'veterinario';
     protected $fillable = ['profesion', 'personal_id','email'];
 
     public function personal()

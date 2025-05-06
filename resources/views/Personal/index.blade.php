@@ -43,14 +43,7 @@
                             <td>{{ $p->apellido }}</td>
                             <td>{{ $p->telefono }}</td>
                             <td>
-                                <a href="{{ route('personal.edit', $p->id) }}" class="btn btn-sm btn-warning">Editar</a>
-
-                                <form action="{{ route('personal.destroy', $p->id) }}" method="POST" style="display:inline-block;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger"
-                                        onclick="return confirm('¿Estás seguro de eliminar este registro?')">Eliminar</button>
-                                </form>
+                                <a href="{{ route('personal.show', $p->id) }}" class="btn btn-sm btn-warning">Ver</a>
                             </td>
                         </tr>
                     @endforeach
