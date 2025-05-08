@@ -355,13 +355,13 @@ return [
                 [
                     'text' => 'Gestión Personal Pasante',
                     'icon' => 'fas fa-user-graduate',
-                    'url'  => 'personal/pasante',
+                    'url'  => 'pasante',
                 ],
 
                 [
                     'text' => 'Gestión Personal Voluntario',
                     'icon' => 'fas fa-hands-helping',
-                    'url'  => 'personal/voluntario',
+                    'url'  => 'voluntario',
                 ],
 
                 [
@@ -370,17 +370,12 @@ return [
                     'submenu' => [
                         [
                             'text' => 'Gestionar Cliente',
-                            'url'  => 'personal/cliente',
+                            'url'  => 'cliente',
                             'icon' => 'fas fa-user-tag',
                         ],
                         [
-                            'text' => 'Gestionar Mascota',
-                            'url'  => 'personal/cliente/mascotas',
-                            'icon' => 'fas fa-dog',
-                        ],
-                        [
                             'text' => 'Gestionar Raza',
-                            'url'  => 'personal/cliente/mascotas',
+                            'url'  => 'raza',
                             'icon' => 'fas fa-dog',
                         ],
                     ],
