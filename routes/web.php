@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
 
     //Route::resource('mascota', MascotaController::class)->names('mascota');
     Route::resource('raza', RazaController::class)->names('raza');
+    Route::resource('especialidad', RazaController::class)->names('especialidad');
 });
 
 

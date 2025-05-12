@@ -28,9 +28,9 @@ class DatabaseSeeder extends Seeder
         // Crear un registro de Usuario relacionado con el Personal creado
         Usuario::create([
             'codigo' => '0001',
-            'personal_id' => $personal->id,  // Asociamos al Personal creado
-            'password' => bcrypt('adm123456'),  // Encriptamos el password
-            'estado' => true,  // Estado del usuario
+            'personal_id' => $personal->id,
+            'password' => bcrypt('adm123456'),
+            'estado' => true,  
         ]);
     }
 }

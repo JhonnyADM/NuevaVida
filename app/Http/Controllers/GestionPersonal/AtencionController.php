@@ -44,6 +44,7 @@ class AtencionController extends Controller
     public function edit(string $id)
     {
         $atencion = Atencion::findOrFail($id);
+        
         return view('personalatencion.edit', compact('atencion'));
     }
     /**
