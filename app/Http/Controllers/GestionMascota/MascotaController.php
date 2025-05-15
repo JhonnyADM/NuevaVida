@@ -65,10 +65,12 @@ class MascotaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Cliente $cliente, Mascota $mascota)
     {
-        //
+        
+        return view('gestionarmascota.mascota.show', compact('mascota', 'cliente'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -108,7 +110,6 @@ class MascotaController extends Controller
     {
         $mascota->delete();
         return redirect()->route('cliente.mascota.index', $cliente->id)
-                         ->with('success', 'Mascota eliminada.');
+            ->with('success', 'Mascota eliminada.');
     }
-
 }

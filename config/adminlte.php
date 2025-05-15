@@ -318,7 +318,7 @@ return [
             'can' => 'manage-blog',
         ],
 
-       
+
 
         [
             'text' => 'GESTIÓN DE PERSONAL',
@@ -334,6 +334,11 @@ return [
                     'text' => 'Gestión Personal Médico',
                     'icon' => 'fas fa-user-md',
                     'url'  => 'medico',
+                ],
+                [
+                    'text' => 'Gestión Especialidad Médica',
+                    'icon' => 'fas fa-stethoscope',
+                    'url'  => 'especialidad',
                 ],
 
                 [
@@ -357,21 +362,31 @@ return [
                 [
                     'text' => 'Gestión Personal Cliente',
                     'icon' => 'fas fa-user',
-                    'submenu' => [
-                        [
-                            'text' => 'Gestionar Cliente',
-                            'url'  => 'cliente',
-                            'icon' => 'fas fa-user-tag',
-                        ],
-                        [
-                            'text' => 'Gestionar Raza',
-                            'url'  => 'raza',
-                            'icon' => 'fas fa-dog',
-                        ],
-                    ],
+                    'url'  => 'cliente',
+
+
+                ],
+
+
+            ],
+        ],
+        [
+            'text' => 'Gestion de Mascotas',
+            'icon' => 'fas fa-paw',
+            'submenu' => [
+                [
+                    'text' => ' Gestion de Razas',
+                    'url'  => 'raza',
+                    'icon' => 'fas fa-dog',
+                ],
+                [
+                    'text' => ' Gestion de Estados',
+                    'url'  => 'estado',
+                    'icon' => 'fas fa-heartbeat',
                 ],
             ],
         ],
+
 
 
     ],

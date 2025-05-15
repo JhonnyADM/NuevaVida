@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GestionMascota\EstadoController;
 use App\Http\Controllers\GestionMascota\MascotaController;
 use App\Http\Controllers\GestionMascota\RazaController;
 use App\Http\Controllers\GestionPersonal\AtencionController;
@@ -44,12 +45,14 @@ Route::middleware('auth')->group(function () {
     Route::post('cliente/{cliente}/mascota', [MascotaController::class, 'store'])->name('cliente.mascota.store');
     Route::get('cliente/{cliente}/mascotas', [MascotaController::class, 'index'])->name('cliente.mascota.index');
     Route::get('cliente/{cliente}/mascota/{mascota}/edit', [MascotaController::class, 'edit'])->name('cliente.mascota.edit');
+    Route::get('cliente/{cliente}/mascota/{mascota}/show', [MascotaController::class, 'show'])->name('cliente.mascota.show');
     Route::put('cliente/{cliente}/mascota/{mascota}', [MascotaController::class, 'update'])->name('cliente.mascota.update');
     Route::delete('cliente/{cliente}/mascota/{mascota}', [MascotaController::class, 'destroy'])->name('cliente.mascota.destroy');
 
     //Route::resource('mascota', MascotaController::class)->names('mascota');
     Route::resource('raza', RazaController::class)->names('raza');
     Route::resource('especialidad', RazaController::class)->names('especialidad');
+    Route::resource('estado', EstadoController::class)->names('estado');
 });
 
 

@@ -56,6 +56,8 @@
                                         <i class="fas fa-trash-alt"></i> Eliminar
                                     </button>
                                 </form>
+                              <a href="{{ route('cliente.mascota.show', ['cliente' => $cliente->id,'mascota' =>$m->id ]) }}">Ver</a>
+
                             </td>
                         </tr>
                     @empty

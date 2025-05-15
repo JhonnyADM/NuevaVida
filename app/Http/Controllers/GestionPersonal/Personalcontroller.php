@@ -10,6 +10,9 @@ use App\Models\GestionPersonal\Pasante;
 use App\Models\GestionPersonal\Atencion;
 use App\Models\GestionPersonal\Voluntario;
 use App\Models\GestionPersonal\Veterinario;
+use App\Models\GestionUSuario\Usuario;
+use Illuminate\Support\Facades\Hash;
+
 class Personalcontroller extends Controller
 {
     /**
@@ -114,8 +117,26 @@ class Personalcontroller extends Controller
                 break;
         }
 
-        return redirect()->route('personal.index')->with('success', 'Personal creado correctamente.');
+        $codigo = $this->generarCodigoUnico();
+        $password = '12345678'; // o '12345678' si lo prefieres
+        Usuario::create([
+            'codigo' => $codigo,
+            'password' => Hash::make($password), // o '12345678' si lo prefieres
+            'estado' => true,
+            'personal_id' => $personal->id,
+        ]);
+
+
+         return view('personal.verUsuario', compact('codigo', 'password'));
     }
+    public function generarCodigoUnico()
+    {
+        do {
+            $codigo = rand(10000, 99999); // 5 dígitos
+        } while (Usuario::where('codigo', $codigo)->exists());
+        return (string) $codigo;
+    }
+
 
     /**
      * Display the specified resource.
@@ -145,7 +166,7 @@ class Personalcontroller extends Controller
                 $detalle = $personal->veterinario;
                 break;
         }
-     /*  dd([
+        /*  dd([
             'personal' => $personal->toArray(),
             'detalle' => $detalle ? $detalle->toArray() : null
         ]);*/
@@ -156,24 +177,15 @@ class Personalcontroller extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-
-    }
+    public function edit(string $id) {}
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-
-    }
+    public function update(Request $request, string $id) {}
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-
-    }
+    public function destroy(string $id) {}
 }
