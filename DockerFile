@@ -1,0 +1,40 @@
+# Etapa 1: construir dependencias
+FROM php:8.2-fpm-alpine AS build
+
+# Instala extensiones necesarias para Laravel
+RUN apk add --no-cache \
+    git unzip curl libpng-dev libjpeg-turbo-dev freetype-dev libzip-dev oniguruma-dev \
+    nodejs npm \
+    && docker-php-ext-install pdo pdo_mysql mbstring zip
+
+# Instala Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www
+
+# Copiar archivos y dependencias PHP
+COPY . .
+
+# Instala dependencias de PHP
+RUN composer install --no-dev --optimize-autoloader
+
+# Instala dependencias de Vite
+RUN npm install && npm run build
+
+# Etapa final
+FROM php:8.2-fpm-alpine
+
+# Reinstala las extensiones
+RUN apk add --no-cache \
+    libpng libjpeg-turbo freetype oniguruma libzip \
+    && docker-php-ext-install pdo pdo_mysql mbstring zip
+
+COPY --from=build /var/www /var/www
+WORKDIR /var/www
+
+# Permisos
+RUN chown -R www-data:www-data /var/www && chmod -R 755 /var/www
+
+EXPOSE 10000
+
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=10000"]
