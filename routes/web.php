@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GestionCompraVenta\CategoriaController;
+use App\Http\Controllers\GestionCompraVenta\NotaIngresoController;
 use App\Http\Controllers\GestionCompraVenta\ProductoController;
 use App\Http\Controllers\GestionCompraVenta\ProvedorController;
 use App\Http\Controllers\GestionMascota\ControlController;
@@ -103,7 +104,8 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('provedor', ProvedorController::class)->names('provedor');
     Route::resource('categoria', CategoriaController::class)->names('categoria');
-     Route::resource('producto', ProductoController::class)->names('producto');
+    Route::resource('producto', ProductoController::class)->names('producto');
+    Route::resource('nota_ingreso', NotaIngresoController::class)->names('nota_ingreso');
 });
 
 

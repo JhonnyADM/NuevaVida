@@ -429,6 +429,12 @@ return [
                     'icon' => 'fas fa-boxes', // Ícono representativo para productos o inventario
                     'title' => 'Ver y administrar los productos disponibles', // Tooltip opcional
                 ],
+                [
+                    'text' => 'Gestión de Notas de Ingreso',
+                    'url'  => 'nota_ingreso',
+                    'icon' => 'fas fa-file-invoice-dollar', // Ícono relacionado a facturas o ingresos
+                ],
+
             ],
         ],
 
