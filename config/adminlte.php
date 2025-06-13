@@ -371,21 +371,44 @@ return [
             ],
         ],
         [
-            'text' => 'Gestion de Mascotas',
-            'icon' => 'fas fa-paw',
+            'text'    => 'Gestión de Mascotas',
+            'icon'    => 'fas fa-paw',
             'submenu' => [
                 [
-                    'text' => ' Gestion de Razas',
+                    'text' => 'Gestión de Razas',
                     'url'  => 'raza',
                     'icon' => 'fas fa-dog',
                 ],
                 [
-                    'text' => ' Gestion de Estados',
+                    'text' => 'Gestión de Estados',
                     'url'  => 'estado',
                     'icon' => 'fas fa-heartbeat',
                 ],
+                [
+                    'text' => 'Gestión de Tipos de Tratamientos',
+                    'url'  => 'tipotratamiento',
+                    'icon' => 'fas fa-notes-medical',
+                ],
             ],
         ],
+
+        [
+            'text'    => 'Gestión de Tareas y Calificación',
+            'icon'    => 'fas fa-tasks',
+            'submenu' => [
+                [
+                    'text' => 'Listado de Tareas',
+                    'url'  => 'tarea',
+                    'icon' => 'fas fa-check-circle',
+                ],
+                [
+                    'text' => 'Calificaciones',
+                    'url'  => 'calificacion', // Solo si existe esta ruta
+                    'icon' => 'fas fa-star',
+                ],
+            ],
+        ],
+
 
 
 

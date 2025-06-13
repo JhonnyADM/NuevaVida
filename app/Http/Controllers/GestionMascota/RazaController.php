@@ -14,7 +14,7 @@ class RazaController extends Controller
     public function index()
     {
         $raza = Raza::paginate(10); // o el número de elementos por página que desees
-        return view('gestionarmascota.raza.index', compact('raza'));
+        return view('GestionarMascota.Raza.index', compact('raza'));
     }
 
     /**
@@ -22,7 +22,7 @@ class RazaController extends Controller
      */
     public function create()
     {
-        return view('gestionarmascota.raza.create');
+        return view('GestionarMascota.Raza.create');
     }
 
     /**
@@ -52,7 +52,7 @@ class RazaController extends Controller
     public function edit(string $id)
     {
         $raza = Raza::findOrFail($id);
-        return view('gestionarmascota.raza.edit', compact('raza'));
+        return view('GestionarMascota.Raza.edit', compact('raza'));
     }
 
     /**

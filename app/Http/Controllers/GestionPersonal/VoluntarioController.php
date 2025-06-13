@@ -17,7 +17,7 @@ class VoluntarioController extends Controller
             $query->where('tipo', 'voluntario');
         })->with('personal')->paginate(10);
 
-        return view('personalVoluntario.index', compact('voluntario'));
+        return view('PersonalVoluntario.index', compact('voluntario'));
     }
 
 
@@ -51,7 +51,7 @@ class VoluntarioController extends Controller
     public function edit(string $id)
     {
         $voluntario = Voluntario::findOrFail($id);
-        return view('personalVoluntario.edit', compact('voluntario'));
+        return view('PersonalVoluntario.edit', compact('voluntario'));
     }
 
 

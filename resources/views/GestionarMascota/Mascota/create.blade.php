@@ -10,7 +10,7 @@
     <form action="{{ route('cliente.mascota.store', $cliente->id) }}" method="POST">
         @csrf
 
-        @include('gestionarmascota.mascota.form')
+        @include('GestionarMascota.Mascota.form')
 
         <button class="btn btn-primary">Guardar Mascota</button>
         <a href="{{ route('cliente.index') }}" class="btn btn-secondary">Cancelar</a>

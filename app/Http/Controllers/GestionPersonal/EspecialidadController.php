@@ -15,7 +15,7 @@ class EspecialidadController extends Controller
     {
 
         $especialidad = Especialidad::paginate(10); // o el número de elementos por página que desees
-        return view('personalmedico.especialidad.index', compact('especialidad'));
+        return view('PersonalMedico.Especialidad.index', compact('especialidad'));
     }
 
     /**
@@ -23,7 +23,7 @@ class EspecialidadController extends Controller
      */
     public function create()
     {
-        return view('personalmedico.especialidad.create');
+        return view('PersonalMedico.Especialidad.create');
     }
 
     /**
@@ -54,7 +54,7 @@ class EspecialidadController extends Controller
     public function edit(string $id)
     {
         $especialidad = Especialidad::findOrFail($id);
-        return view('personalmedico.especialidad.edit', compact('especialidad'));
+        return view('PersonalMedico.Especialidad.edit', compact('especialidad'));
     }
 
 

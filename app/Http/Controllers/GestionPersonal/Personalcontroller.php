@@ -21,7 +21,7 @@ class Personalcontroller extends Controller
     public function index()
     {
         $personal = Personal::paginate(10);
-        return view('personal.index', compact('personal'));
+        return view('Personal.index', compact('personal'));
     }
 
     /**
@@ -29,7 +29,7 @@ class Personalcontroller extends Controller
      */
     public function create()
     {
-        return view('personal.create');
+        return view('Personal.create');
     }
 
     /**
@@ -127,7 +127,7 @@ class Personalcontroller extends Controller
         ]);
 
 
-         return view('personal.verUsuario', compact('codigo', 'password'));
+         return view('Personal.verUsuario', compact('codigo', 'password'));
     }
     public function generarCodigoUnico()
     {
@@ -170,7 +170,7 @@ class Personalcontroller extends Controller
             'personal' => $personal->toArray(),
             'detalle' => $detalle ? $detalle->toArray() : null
         ]);*/
-        return view('personal.show', compact('personal', 'detalle'));
+        return view('Personal.show', compact('personal', 'detalle'));
     }
 
 

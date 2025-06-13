@@ -17,7 +17,7 @@ class PasanteController extends Controller
             $query->where('tipo', 'pasante');
         })->with('personal')->paginate(10);
 
-        return view('personalpasante.index', compact('pasante'));
+        return view('PersonalPasante.index', compact('pasante'));
     }
 
     /**
@@ -50,7 +50,7 @@ class PasanteController extends Controller
     public function edit(string $id)
     {
         $pasante = Pasante::findOrFail($id);
-        return view('personalpasante.edit', compact('pasante'));
+        return view('PersonalPasante.edit', compact('pasante'));
     }
 
 

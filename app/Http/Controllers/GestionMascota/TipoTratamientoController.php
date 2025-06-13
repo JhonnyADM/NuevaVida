@@ -3,26 +3,27 @@
 namespace App\Http\Controllers\GestionMascota;
 
 use App\Http\Controllers\Controller;
-use App\Models\GestionarMascota\Estado;
+use App\Models\GestionarMascota\TipoTratamiento;
 use Illuminate\Http\Request;
 
-class EstadoController extends Controller
+class TipoTratamientoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $estados = Estado::paginate(10);
-        return view('GestionarMascota.Estado.index' , compact('estados'));
+        $tipo = TipoTratamiento::paginate(10); // o el número de elementos por página que desees
+        return view('GestionarMascota.tipotratamiento.index', compact('tipo'));
     }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-      return view('GestionarMascota.Estado.create');
+        return view('GestionarMascota.tipotratamiento.create');
     }
 
     /**
@@ -34,10 +35,9 @@ class EstadoController extends Controller
             'descripcion' => 'required|string|max:255'
         ]);
 
-        Estado::create($request->all());
-        return redirect()->route('estado.index')->with('success', 'Estado creada con éxito.');
+        TipoTratamiento::create($request->all());
+        return redirect()->route('tipotratamiento.index')->with('success', 'Tipo tratemiento  creada con éxito.');
     }
-
 
     /**
      * Display the specified resource.
@@ -52,10 +52,9 @@ class EstadoController extends Controller
      */
     public function edit(string $id)
     {
-       $estados = Estado::findOrFail($id);
-        return view('GestionarMascota.Estado.edit', compact('estados'));
+        $tipo = TipoTratamiento::findOrFail($id);
+        return view('GestionarMascota.tipotratamiento.edit', compact('tipo'));
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -66,21 +65,20 @@ class EstadoController extends Controller
             'descripcion' => 'required|string|max:255'
         ]);
 
-        $estado = Estado::findOrFail($id);
+        $tipo = TipoTratamiento::findOrFail($id);
 
-        $estado->update($request->all());
+        $tipo->update($request->all());
 
-        return redirect()->route('estado.index')->with('success', 'Estado actualizado correctamente.');
+        return redirect()->route('tipotratamiento.index')->with('success', 'Tipo tratamiento actualizada correctamente.');
     }
-
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        $estado = Estado::findOrFail($id);
-        $estado->delete();
-        return redirect()->route('estado.index')->with('success', 'Estado eliminado.');
+        $tipo = TipoTratamiento::findOrFail($id);
+        $tipo->delete();
+        return redirect()->route('tipotratamiento.index')->with('success', 'Tipo Tratamiento eliminada.');
     }
 }

@@ -45,10 +45,11 @@
                             <td>{{ $m->edad }}</td>
                             <td>{{ $m->peso }} kg</td>
                             <td>{{ $m->raza->descripcion }}</td>
-                            <td>
+                            <td class="d-flex flex-wrap gap-1">
                                 <a href="{{ route('cliente.mascota.edit', [$cliente->id, $m->id]) }}" class="btn btn-warning btn-sm">
                                     <i class="fas fa-edit"></i> Editar
                                 </a>
+
                                 <form action="{{ route('cliente.mascota.destroy', [$cliente->id, $m->id]) }}" method="POST" style="display:inline-block;">
                                     @csrf
                                     @method('DELETE')
@@ -56,7 +57,24 @@
                                         <i class="fas fa-trash-alt"></i> Eliminar
                                     </button>
                                 </form>
-                              <a href="{{ route('cliente.mascota.show', ['cliente' => $cliente->id,'mascota' =>$m->id ]) }}">Ver</a>
+
+                                <a href="{{ route('cliente.mascota.show', ['cliente' => $cliente->id, 'mascota' => $m->id]) }}" class="btn btn-info btn-sm">
+                                    <i class="fas fa-eye"></i> Ver
+                                </a>
+
+                                <a href="{{ route('cliente.mascota.tratamiento.create', ['cliente' => $cliente->id, 'mascota' => $m->id]) }}" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-notes-medical"></i> Añadir Tratamiento
+                                </a>
+
+                                <a href="{{ route('cliente.mascota.tratamiento.index', ['cliente' => $cliente->id, 'mascota' => $m->id]) }}" class="btn btn-secondary btn-sm">
+                                    <i class="fas fa-list"></i> Ver Tratamientos
+                                </a>
+                                 <a href="{{ route('cliente.mascota.internacion.create', ['cliente' => $cliente->id, 'mascota' => $m->id]) }}" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-notes-medical"></i> Añadir Internacion
+                                </a>
+                                 <a href="{{ route('cliente.mascota.internacion.index', ['cliente' => $cliente, 'mascota' => $m->id]) }}" class="btn btn-secondary btn-sm">
+                                    <i class="fas fa-list"></i> Ver Internaciones
+                                </a>
 
                             </td>
                         </tr>

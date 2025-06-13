@@ -11,11 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tarea', function (Blueprint $table) {
+        Schema::create('control_internacion', function (Blueprint $table) {
             $table->id();
-            $table->string('descripcion');
-            $table->date('fecha');
+            $table->string('detalle');
+            $table->dateTime('fecha'); 
             $table->foreignId('estado_id')->constrained('estado')->onDelete('cascade');
+            $table->unsignedBigInteger('internacion_id');
+            $table->foreign('internacion_id')
+                ->references('id')
+                ->on('internacion')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -25,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tarea');
+        Schema::dropIfExists('control_internacion');
     }
 };

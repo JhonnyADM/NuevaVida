@@ -19,7 +19,7 @@ class AtencionController extends Controller
             $query->where('tipo', 'atencion');
         })->with('personal')->paginate(10);
 
-        return view('personalatencion.index', compact('atencion'));
+        return view('PersonalAtencion.index', compact('atencion'));
     }
     /**
      * Show the form for creating a new resource.
@@ -44,8 +44,8 @@ class AtencionController extends Controller
     public function edit(string $id)
     {
         $atencion = Atencion::findOrFail($id);
-        
-        return view('personalatencion.edit', compact('atencion'));
+
+        return view('PersonalAtencion.edit', compact('atencion'));
     }
     /**
      * Update the specified resource in storage.

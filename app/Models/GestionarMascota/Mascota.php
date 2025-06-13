@@ -11,8 +11,14 @@ class Mascota extends Model
     use HasFactory;
     protected $table = 'mascota';
     protected $fillable = [
-        'nombre', 'color', 'descripcion', 'edad',
-        'fecha_nacimiento', 'peso', 'raza_id', 'cliente_id'
+        'nombre',
+        'color',
+        'descripcion',
+        'edad',
+        'fecha_nacimiento',
+        'peso',
+        'raza_id',
+        'cliente_id'
     ];
 
     public function raza()
@@ -24,6 +30,12 @@ class Mascota extends Model
     {
         return $this->belongsTo(Cliente::class);
     }
-
-
+    public function tratamientos()
+    {
+        return $this->hasMany(Tratamiento::class, 'mascota_id');
+    }
+     public function internacion()
+    {
+        return $this->hasMany(Internacion::class, 'mascota_id');
+    }
 }

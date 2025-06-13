@@ -11,11 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tarea', function (Blueprint $table) {
+        Schema::create('control', function (Blueprint $table) {
             $table->id();
-            $table->string('descripcion');
+            $table->string('Observacion');
             $table->date('fecha');
+            // Llave foránea a tipo_tratamiento
             $table->foreignId('estado_id')->constrained('estado')->onDelete('cascade');
+            $table->unsignedBigInteger('tratamiento_id');
+            $table->foreign('tratamiento_id')
+                ->references('id')
+                ->on('tratamiento')
+                ->onDelete('cascade'); // ← Esto indica "composición"
             $table->timestamps();
         });
     }
@@ -25,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tarea');
+        Schema::dropIfExists('control');
     }
 };

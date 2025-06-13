@@ -17,7 +17,7 @@ class ClienteController extends Controller
             $query->where('tipo', 'cliente');
         })->with('personal')->paginate(10);
 
-        return view('personalcliente.index', compact('cliente'));
+        return view('PersonalCliente.index', compact('cliente'));
     }
 
 
@@ -51,7 +51,7 @@ class ClienteController extends Controller
     public function edit(string $id)
     {
         $cliente = Cliente::findOrFail($id);
-        return view('personalcliente.edit', compact('cliente'));
+        return view('PersonalCliente.edit', compact('cliente'));
     }
 
     /**

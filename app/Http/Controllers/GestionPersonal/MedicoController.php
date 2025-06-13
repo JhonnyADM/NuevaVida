@@ -17,7 +17,7 @@ class MedicoController extends Controller
             $query->where('tipo', 'veterinario');
         })->with('personal')->paginate(10);
 
-        return view('personalmedico.index', compact('medico'));
+        return view('PersonalMedico.index', compact('medico'));
     }
 
     /**
@@ -50,7 +50,7 @@ class MedicoController extends Controller
     public function edit(string $id)
     {
         $medico = Veterinario::findOrFail($id);
-        return view('personalmedico.edit', compact('medico'));
+        return view('PersonalMedico.edit', compact('medico'));
     }
 
     /**

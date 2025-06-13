@@ -19,7 +19,7 @@ class MascotaController extends Controller
             ->where('cliente_id', $cliente->id)
             ->paginate(10);
 
-        return view('gestionarmascota.mascota.index', compact('mascotas', 'cliente'));
+        return view('GestionarMascota.Mascota.index', compact('mascotas', 'cliente'));
     }
 
     /**
@@ -28,7 +28,7 @@ class MascotaController extends Controller
     public function create(Cliente $cliente)
     {
         $razas = Raza::all();
-        return view('gestionarmascota.mascota.create', compact('razas', 'cliente'));
+        return view('GestionarMascota.Mascota.create', compact('razas', 'cliente'));
     }
 
 
@@ -67,8 +67,8 @@ class MascotaController extends Controller
      */
     public function show(Cliente $cliente, Mascota $mascota)
     {
-        
-        return view('gestionarmascota.mascota.show', compact('mascota', 'cliente'));
+
+        return view('GestionarMascota.Mascota.show', compact('mascota', 'cliente'));
     }
 
 
@@ -78,7 +78,7 @@ class MascotaController extends Controller
     public function edit(Cliente $cliente, Mascota $mascota)
     {
         $razas = Raza::all();
-        return view('gestionarmascota.mascota.edit', compact('mascota', 'razas', 'cliente'));
+        return view('GestionarMascota.Mascota.edit', compact('mascota', 'razas', 'cliente'));
     }
 
 

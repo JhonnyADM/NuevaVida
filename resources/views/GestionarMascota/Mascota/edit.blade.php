@@ -12,7 +12,7 @@
         <div class="card">
             <div class="card-body">
 
-                @include('GestionarMascota.mascota.form', ['mascota' => $mascota])
+                @include('GestionarMascota.Mascota.form', ['mascota' => $mascota])
 
                 <div class="mt-3">
                     <button class="btn btn-success"><i class="fas fa-save"></i> Actualizar</button>

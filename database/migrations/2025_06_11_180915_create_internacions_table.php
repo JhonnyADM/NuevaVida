@@ -11,10 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('veterinario_especialidads', function (Blueprint $table) {
+        Schema::create('internacion', function (Blueprint $table) {
             $table->id();
+            $table->string('detalles');
+            $table->date('fecha_ingreso');
+             $table->date('fecha_salida');
+            // Llave foránea a mascota
+            $table->foreignId('mascota_id')->constrained('mascota')->onDelete('cascade');
+            // Llave foránea a veterinario
             $table->foreignId('veterinario_id')->constrained('veterinario')->onDelete('cascade');
-            $table->foreignId('especialidad_id')->constrained('especialidad')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -24,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('veterinario_especialidads');
+        Schema::dropIfExists('internacion');
     }
 };
