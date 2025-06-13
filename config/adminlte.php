@@ -409,6 +409,28 @@ return [
             ],
         ],
 
+        [
+            'text'    => 'Gestión de Compra y Venta',
+            'icon'    => 'fas fa-tasks',
+            'submenu' => [
+                [
+                    'text' => 'Listado de Provedores',
+                    'url'  => 'provedor',
+                    'icon' => 'fas fa-truck-loading',
+                ],
+                [
+                    'text' => 'Listado de Categorías',
+                    'url'  => 'categoria',
+                    'icon' => 'fas fa-tags',
+                ],
+                [
+                    'text' => 'Gestión de Productos',
+                    'url'  => 'producto',
+                    'icon' => 'fas fa-boxes', // Ícono representativo para productos o inventario
+                    'title' => 'Ver y administrar los productos disponibles', // Tooltip opcional
+                ],
+            ],
+        ],
 
 
 

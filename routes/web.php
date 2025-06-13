@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\GestionCompraVenta\CategoriaController;
+use App\Http\Controllers\GestionCompraVenta\ProductoController;
+use App\Http\Controllers\GestionCompraVenta\ProvedorController;
 use App\Http\Controllers\GestionMascota\ControlController;
 use App\Http\Controllers\GestionMascota\ControlInternacionController;
 use App\Http\Controllers\GestionMascota\EstadoController;
@@ -20,6 +23,7 @@ use App\Http\Controllers\ProfileController;
 use App\Models\GestionPersonal\Atencion;
 use Faker\Provider\ar_EG\Person;
 use Illuminate\Support\Facades\Route;
+use PHPUnit\Framework\Attributes\Group;
 
 Route::get('/', function () {
     return view('welcome');
@@ -87,7 +91,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('internacion/{internacion}', [InternacionController::class, 'destroy'])->name('internacion.destroy');
     });
     Route::prefix('mascota/{mascota}/internacion/{tratamiento}/control')
-    ->name('mascota.internacion.control.')
+        ->name('mascota.internacion.control.')
         ->group(function () {
             Route::get('/', [ControlInternacionController::class, 'index'])->name('index');
             Route::get('create', [ControlInternacionController::class, 'create'])->name('create');
@@ -96,6 +100,10 @@ Route::middleware('auth')->group(function () {
             Route::put('{control}', [ControlInternacionController::class, 'update'])->name('update');
             Route::delete('{control}', [ControlInternacionController::class, 'destroy'])->name('destroy');
         });
+
+    Route::resource('provedor', ProvedorController::class)->names('provedor');
+    Route::resource('categoria', CategoriaController::class)->names('categoria');
+     Route::resource('producto', ProductoController::class)->names('producto');
 });
 
 
