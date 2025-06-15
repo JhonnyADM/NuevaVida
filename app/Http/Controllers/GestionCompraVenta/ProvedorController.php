@@ -38,7 +38,7 @@ class ProvedorController extends Controller
             ]
         );
         Provedor::create($data);
-        return redirect()->route('provedor.index')->with('succes', 'Provedor Creado Exitosamente');
+        return redirect()->route('provedor.index')->with('success', 'Provedor Creado Exitosamente');
     }
 
     /**
@@ -72,7 +72,7 @@ class ProvedorController extends Controller
         );
         $provedor = Provedor::findOrFail($id);
         $provedor->update($request->all());
-        return redirect()->route('provedor.index')->with('succes', 'Provedor Actualizado Exitosamente');
+        return redirect()->route('provedor.index')->with('success', 'Provedor Actualizado Exitosamente');
     }
 
     /**
@@ -82,6 +82,6 @@ class ProvedorController extends Controller
     {
         $provedor = Provedor::findOrFail($id);
         $provedor->delete();
-        return redirect()->route('provedor.index')->with('succes', 'Provedor Eliminado Exitosamente');
+        return redirect()->route('provedor.index')->with('success', 'Provedor Eliminado Exitosamente');
     }
 }

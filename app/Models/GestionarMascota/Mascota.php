@@ -2,6 +2,7 @@
 
 namespace App\Models\GestionarMascota;
 
+use App\Models\GestionCompraVenta\SolicitarServicio;
 use App\Models\GestionPersonal\Cliente;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -34,8 +35,12 @@ class Mascota extends Model
     {
         return $this->hasMany(Tratamiento::class, 'mascota_id');
     }
-     public function internacion()
+    public function internacion()
     {
         return $this->hasMany(Internacion::class, 'mascota_id');
+    }
+    public function solicitudes()
+    {
+        return $this->hasMany(SolicitarServicio::class);
     }
 }

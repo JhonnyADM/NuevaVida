@@ -4,6 +4,8 @@ use App\Http\Controllers\GestionCompraVenta\CategoriaController;
 use App\Http\Controllers\GestionCompraVenta\NotaIngresoController;
 use App\Http\Controllers\GestionCompraVenta\ProductoController;
 use App\Http\Controllers\GestionCompraVenta\ProvedorController;
+use App\Http\Controllers\GestionCompraVenta\ServicioController;
+use App\Http\Controllers\GestionCompraVenta\SolicitarServicioController;
 use App\Http\Controllers\GestionMascota\ControlController;
 use App\Http\Controllers\GestionMascota\ControlInternacionController;
 use App\Http\Controllers\GestionMascota\EstadoController;
@@ -106,6 +108,36 @@ Route::middleware('auth')->group(function () {
     Route::resource('categoria', CategoriaController::class)->names('categoria');
     Route::resource('producto', ProductoController::class)->names('producto');
     Route::resource('nota_ingreso', NotaIngresoController::class)->names('nota_ingreso');
+    Route::resource('servicio', ServicioController::class)->names('servicio');
+    Route::prefix('solicitar-servicio')->group(function () {
+        // Vista para seleccionar cliente
+        Route::get('/seleccionar-cliente', [SolicitarServicioController::class, 'solicitarServicio'])
+            ->name('solicitar-servicio.seleccionar-cliente');
+
+        // Vista para crear una solicitud ya con el cliente seleccionado
+        Route::get('/crear', [SolicitarServicioController::class, 'create'])
+            ->name('solicitar-servicio.create');
+
+        // Ruta que procesa el formulario y guarda la solicitud
+        Route::post('/', [SolicitarServicioController::class, 'store'])
+            ->name('solicitar-servicio.store');
+
+        // Listar atenciones ya registradas
+        Route::get('/', [SolicitarServicioController::class, 'index'])
+            ->name('solicitar-servicio.index');
+
+        // Ver detalle de una solicitud
+        Route::get('/{id}', [SolicitarServicioController::class, 'show'])
+            ->name('solicitar-servicio.show');
+
+        // Eliminar solicitud
+        Route::delete('/{id}', [SolicitarServicioController::class, 'destroy'])
+            ->name('solicitar-servicio.destroy');
+        // Editar solicitud
+        Route::get('/{id}/edit', [SolicitarServicioController::class, 'edit'])->name('solicitar-servicio.edit');
+        Route::put('/{id}', [SolicitarServicioController::class, 'update'])->name('solicitar-servicio.update');
+    });
+
 });
 
 

@@ -434,6 +434,11 @@ return [
                     'url'  => 'nota_ingreso',
                     'icon' => 'fas fa-file-invoice-dollar', // Ícono relacionado a facturas o ingresos
                 ],
+                [
+                    'text' => 'Gestión de Servicios',
+                    'url'  => 'servicio',
+                    'icon' => 'fas fa-box-open', // Ícono relacionado a servicios o facturación
+                ],
 
             ],
         ],
