@@ -2,6 +2,7 @@
 
 namespace App\Models\GestionUSuario;
 
+use Spatie\Permission\Traits\HasRoles;
 use App\Models\GestionPersonal\Personal;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -10,6 +11,7 @@ use Illuminate\Notifications\Notifiable;
 class Usuario extends Authenticatable
 {
     use Notifiable;
+     use HasRoles;
     protected $table = 'usuario';
     protected $fillable = ['codigo', 'personal_id', 'password', 'estado'];
     public function personal()

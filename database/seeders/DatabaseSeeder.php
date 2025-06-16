@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        $personal = Personal::create([
+        /*$personal = Personal::create([
             'nombre' => 'Carlos',
             'apellido' => 'Martínez',
             'telefono' => '1122334455',
@@ -30,7 +30,10 @@ class DatabaseSeeder extends Seeder
             'codigo' => '0001',
             'personal_id' => $personal->id,
             'password' => bcrypt('adm123456'),
-            'estado' => true,  
-        ]);
+            'estado' => true,
+        ]);*/
+        $this->call(PermissionsFromRoutesSeeder::class);
+        $this->call(RolesAndPermissionsSeeder::class);
+
     }
 }

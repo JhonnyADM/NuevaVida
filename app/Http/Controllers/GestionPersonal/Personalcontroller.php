@@ -119,15 +119,18 @@ class Personalcontroller extends Controller
 
         $codigo = $this->generarCodigoUnico();
         $password = '12345678'; // o '12345678' si lo prefieres
-        Usuario::create([
+        $usuario = Usuario::create([
             'codigo' => $codigo,
-            'password' => Hash::make($password), // o '12345678' si lo prefieres
+            'password' => Hash::make($password),
             'estado' => true,
             'personal_id' => $personal->id,
         ]);
 
+        // Asignar rol basado en tipo
+        $rolAsignar = $request->tipo;
+        $usuario->assignRole($rolAsignar);
 
-         return view('Personal.verUsuario', compact('codigo', 'password'));
+        return view('Personal.verUsuario', compact('codigo', 'password'));
     }
     public function generarCodigoUnico()
     {
