@@ -33,6 +33,7 @@
                 <thead class="table-dark">
                     <tr>
                         <th>Nombre</th>
+                        <th>Codigo</th>
                         <th>Apellido</th>
                         <th class="text-center" style="width: 35%">Acciones</th>
                     </tr>
@@ -40,7 +41,8 @@
                 <tbody>
                     @forelse ($cliente as $p)
                         <tr>
-                            <td>{{ $p->personal->nombre }}</td>
+                            <td>{{ $p->personal->usuario->codigo }}</td>
+                             <td>{{ $p->personal->nombre }}</td>
                             <td>{{ $p->personal->apellido }}</td>
                             <td class="text-center">
                                 <a href="{{ route('cliente.edit', $p->id) }}" class="btn btn-sm btn-warning me-1">

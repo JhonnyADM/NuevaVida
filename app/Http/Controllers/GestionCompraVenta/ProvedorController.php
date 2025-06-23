@@ -28,7 +28,7 @@ class ProvedorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request)// valida y guarda en la bd
     {
         $data= $request->validate(
             [
@@ -52,7 +52,7 @@ class ProvedorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id)// manda a la vista editar
     {
         $provedor = Provedor::findOrFail($id);
         return view('gestioncompraventa.provedor.edit', compact('provedor'));
@@ -61,7 +61,7 @@ class ProvedorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id)// valida y actualiza la inf del prov
     {
         $request->validate(
             [
@@ -78,7 +78,7 @@ class ProvedorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id)// elimina
     {
         $provedor = Provedor::findOrFail($id);
         $provedor->delete();

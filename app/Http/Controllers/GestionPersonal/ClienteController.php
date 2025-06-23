@@ -93,6 +93,7 @@ class ClienteController extends Controller
      */
     public function destroy(string $id)
     {
+        
         $cliente = Cliente::findOrFail($id);
 
         // Primero eliminamos la atención

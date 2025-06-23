@@ -4,7 +4,7 @@ namespace App\Models\GestionPersonal;
 
 use App\Models\GestionarMascota\Mascota;
 use App\Models\GestionCompraVenta\Recibo;
-
+use App\Models\GestionCompraVenta\Servicio;
 use Illuminate\Database\Eloquent\Model;
 
 class Cliente extends Model
@@ -25,5 +25,11 @@ class Cliente extends Model
     public function recibos()
     {
         return $this->hasMany(Recibo::class);
+    }
+    public function servicios()
+    {
+        return $this->belongsToMany(Servicio::class, 'calificacion')
+            ->withPivot('valor')
+            ->withTimestamps();
     }
 }

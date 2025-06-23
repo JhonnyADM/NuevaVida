@@ -21,12 +21,20 @@ use App\Http\Controllers\GestionPersonal\MedicoController;
 use App\Http\Controllers\GestionPersonal\PasanteController;
 use App\Http\Controllers\GestionPersonal\Personalcontroller;
 use App\Http\Controllers\GestionPersonal\VoluntarioController;
+use App\Http\Controllers\GestionReportes\ReporteCalificacionController;
+use App\Http\Controllers\GestionReportes\ReporteHistorialClinicoController;
+use App\Http\Controllers\GestionReportes\ReporteProductosVencidosController;
+use App\Http\Controllers\GestionReportes\ReporteServicioRealizadosController;
+use App\Http\Controllers\GestionTareaCalficacion\CalificacionController;
 use App\Http\Controllers\GestionTareaCalficacion\TareaController;
 use App\Http\Controllers\GestionUsuario\RolPermisoController;
+use App\Http\Controllers\PanelController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\VerificarRol;
+use App\Models\GestionCompraVenta\Servicio;
 use App\Models\GestionPersonal\Atencion;
 use Faker\Provider\ar_EG\Person;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
 use PHPUnit\Framework\Attributes\Group;
 
@@ -34,10 +42,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/panel', function () {
-    return view('panel');
-})->middleware(['auth', 'verified'])->name('panel');
 
+Route::get('/panel', [PanelController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('panel');
 Route::middleware('auth')->group(function () {
 
 
@@ -56,7 +64,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::middleware([VerificarRol::class .':superadmin|atencion'])->group(function () {
+    Route::middleware([VerificarRol::class . ':superadmin|atencion'])->group(function () {
         // Gestión de todo el personal general
         Route::resource('personal', Personalcontroller::class);
         // Subgrupo para tipos específicos de personal
@@ -108,7 +116,7 @@ Route::middleware('auth')->group(function () {
     });
 
 
-    Route::middleware([VerificarRol::class .':superadmin|veterinario'])->group(function () {
+    Route::middleware([VerificarRol::class . ':superadmin|veterinario'])->group(function () {
         Route::resource('cliente', ClienteController::class)->names('cliente');
         Route::resource('tipotratamiento', TipoTratamientoController::class)->names('tipotratamiento');
         // Mascotas del cliente
@@ -157,7 +165,39 @@ Route::middleware('auth')->group(function () {
                 Route::delete('{control}', [ControlInternacionController::class, 'destroy'])->name('destroy');
             });
     });
+    Route::post('/calificacion', [CalificacionController::class, 'store'])->name('calificacion.store');
+    Route::get('/reporte/calificaciones', [ReporteCalificacionController::class, 'index'])
+        ->middleware(['auth'])
+        ->name('reporte.calificaciones');
 });
+Route::get('/reporte/servicios-realizados', [ReporteServicioRealizadosController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('reporte.servicios-realizados');
+
+
+Route::get('/reporte/productos-vencidos', [ReporteProductosVencidosController::class, 'general'])
+    ->middleware(['auth'])
+    ->name('reporte.productos.vencidos.general');
+
+Route::get('/reporte/productos-vencidos/categoria', [ReporteProductosVencidosController::class, 'porCategoria'])
+    ->middleware(['auth'])
+    ->name('reporte.productos.vencidos.categoria');
+
+Route::get('/reporte/historial-clinico/seleccionar-cliente', [ReporteHistorialClinicoController::class, 'seleccionarCliente'])
+    ->name('reporte.historial.seleccionar-cliente');
+
+// Procesamiento del cliente seleccionado: muestra sus mascotas
+Route::get('/reporte/historial-clinico', [ReporteHistorialClinicoController::class, 'create'])
+    ->name('reporte.historial.create');
+
+// Carga dinámica del historial clínico de una mascota (AJAX)
+Route::get('/reporte/historial-clinico/ajax/{mascota_id}', [ReporteHistorialClinicoController::class, 'ajax'])
+    ->name('reporte.historial.ajax');
+
+// Vista directa del historial clínico completo de una mascota (opcional si se usa sin AJAX)
+Route::get('/reporte/historial-clinico/mascota/{mascota_id}', [ReporteHistorialClinicoController::class, 'show'])
+    ->name('reporte.historial.show');
+    // Ruta 'dashboard' para evitar errores de redirección
 
 
 require __DIR__ . '/auth.php';

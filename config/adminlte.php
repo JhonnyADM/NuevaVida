@@ -319,6 +319,12 @@ return [
         ],
 
 
+        [
+            'text' => 'Gestión de Roles y Permisos',
+            'url'  => 'roles',
+            'icon' => 'fas fa-user-shield', // Ícono representativo para roles/permisos
+        ],
+
 
         [
             'text' => 'GESTIÓN DE PERSONAL',
@@ -442,6 +448,39 @@ return [
 
             ],
         ],
+        [
+            'text'    => 'Reportes',
+            'icon'    => 'fas fa-chart-bar', // Icono general para reportes
+            'submenu' => [
+                [
+                    'text' => 'Reportes Productos Vencidos General',
+                    'url'  => 'reporte/productos-vencidos',
+                    'icon' => 'fas fa-calendar-times', // Mejor para indicar vencimientos
+                ],
+                [
+                    'text' => 'Reporte Productos Vencidos por Categoria',
+                    'url'  => 'reporte/productos-vencidos/categoria',
+                    'icon' => 'fas fa-layer-group', // Representa categorías o agrupaciones
+                ],
+                [
+                    'text' => 'Reporte Calificación',
+                    'url'  => 'reporte/calificaciones',
+                    'icon' => 'fas fa-star', // Ícono típico de calificación
+                    'title' => 'Ver y administrar los productos disponibles',
+                ],
+                [
+                    'text' => 'Reporte Servicios Realizados',
+                    'url'  => 'reporte/servicios-realizados',
+                    'icon' => 'fas fa-tools', // Relacionado a trabajos o servicios realizados
+                ],
+                [
+                    'text' => 'Reporte Historial Clínico',
+                    'url'  => '3',
+                    'icon' => 'fas fa-notes-medical', // Ícono médico representativo
+                ],
+            ],
+        ],
+
 
 
 

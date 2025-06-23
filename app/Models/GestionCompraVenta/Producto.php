@@ -17,7 +17,9 @@ class Producto extends Model
     protected $casts = [
         'precio' => 'float',
         'stock' => 'integer',
+         'vencimiento' => 'datetime',
     ];
+
 
     public function categoria()
     {
