@@ -25,6 +25,7 @@ use App\Http\Controllers\GestionReportes\ReporteCalificacionController;
 use App\Http\Controllers\GestionReportes\ReporteHistorialClinicoController;
 use App\Http\Controllers\GestionReportes\ReporteProductosVencidosController;
 use App\Http\Controllers\GestionReportes\ReporteServicioRealizadosController;
+use App\Http\Controllers\GestionTareaCalficacion\AsignacionTareaController;
 use App\Http\Controllers\GestionTareaCalficacion\CalificacionController;
 use App\Http\Controllers\GestionTareaCalficacion\TareaController;
 use App\Http\Controllers\GestionUsuario\RolPermisoController;
@@ -199,5 +200,10 @@ Route::get('/reporte/historial-clinico/mascota/{mascota_id}', [ReporteHistorialC
     ->name('reporte.historial.show');
     // Ruta 'dashboard' para evitar errores de redirección
 
+
+Route::get('/asignar-tarea', [AsignacionTareaController::class, 'create'])->name('asignaciones.create');
+Route::post('/asignar-tarea', [AsignacionTareaController::class, 'store'])->name('asignaciones.store');
+Route::get('/asignaciones/pasantes', [AsignacionTareaController::class, 'tareasPorPasante'])->name('asignaciones.pasantes');
+Route::get('/asignaciones/voluntarios', [AsignacionTareaController::class, 'tareasPorVoluntario'])->name('asignaciones.voluntarios');
 
 require __DIR__ . '/auth.php';

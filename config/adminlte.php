@@ -405,15 +405,21 @@ return [
                 [
                     'text' => 'Listado de Tareas',
                     'url'  => 'tarea',
-                    'icon' => 'fas fa-check-circle',
+                    'icon' => 'fas fa-list-check', // más representativo que check-circle
+                ],
+                [
+                    'text' => 'Asignación de Tareas',
+                    'url'  => 'asignar-tarea',
+                    'icon' => 'fas fa-user-plus', // indica asignación o vinculación
                 ],
                 [
                     'text' => 'Calificaciones',
-                    'url'  => 'calificacion', // Solo si existe esta ruta
-                    'icon' => 'fas fa-star',
+                    'url'  => 'calificacion',
+                    'icon' => 'fas fa-star', // mantiene el ícono de calificación
                 ],
             ],
         ],
+
 
         [
             'text'    => 'Gestión de Compra y Venta',
@@ -475,7 +481,17 @@ return [
                 ],
                 [
                     'text' => 'Reporte Historial Clínico',
-                    'url'  => '3',
+                    'url'  => 'reporte/historial-clinico/seleccionar-cliente',
+                    'icon' => 'fas fa-notes-medical', // Ícono médico representativo
+                ],
+                [
+                    'text' => 'Reporte Tareas Asignadas por Pasante',
+                    'url'  => 'asignaciones/pasantes',
+                    'icon' => 'fas fa-notes-medical', // Ícono médico representativo
+                ],
+                [
+                    'text' => 'Reporte Tareas Asignadas por Voluntario',
+                    'url'  => 'asignaciones/voluntarios',
                     'icon' => 'fas fa-notes-medical', // Ícono médico representativo
                 ],
             ],
