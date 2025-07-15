@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Recibo extends Model
 {
     protected $table = 'recibo';
-    protected $fillable = ['atencion_id', 'mascota_id', 'cliente_id', 'fecha', 'total'];
+    protected $fillable = ['atencion_id', 'mascota_id', 'cliente_id', 'fecha','descripcion', 'total'];
 
     protected $casts = [
         'fecha' => 'date',

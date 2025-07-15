@@ -18,6 +18,7 @@ return new class extends Migration
              $table->foreignId('cliente_id')->constrained('cliente')->onDelete('cascade');
             $table->date('fecha');
             $table->decimal('total', 10, 2)->default(0);
+            $table->string('descripcion');
             $table->timestamps();
         });
     }

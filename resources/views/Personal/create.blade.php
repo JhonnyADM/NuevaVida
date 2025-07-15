@@ -14,7 +14,10 @@
             <label>Apellido</label>
             <input type="text" name="apellido" class="form-control">
         </div>
-
+             <div class="form-group">
+            <label>domicilio</label>
+            <input type="text" name="domicilio" class="create">
+        </div>
         <div class="form-group">
             <label>Teléfono</label>
             <input type="text" name="telefono" class="form-control">

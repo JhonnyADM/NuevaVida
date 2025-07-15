@@ -55,6 +55,13 @@
                         <i class="fas fa-plus-circle"></i> Agregar Producto
                     </button>
                 </div>
+                 <div class="form-group">
+                    <label for="descripcion">Descripcion</label>
+                    <textarea name="descripcion" id="descripcion" class="form-control @error('descripcion') is-invalid @enderror" rows="3">{{ old('descripcion') }}</textarea>
+                    @error('descripcion')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
 
                 <hr class="mt-4">
                 <div class="bg-light p-3 rounded">

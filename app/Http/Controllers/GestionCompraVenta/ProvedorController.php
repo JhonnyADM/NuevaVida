@@ -67,7 +67,7 @@ class ProvedorController extends Controller
             [
                 'descripcion' => 'required|string|max:255',
                 'email' => 'required|email|max:255',
-                'telefono' => 'required|string|max:20'
+                'telefono' => 'required|string|max:20',
             ]
         );
         $provedor = Provedor::findOrFail($id);

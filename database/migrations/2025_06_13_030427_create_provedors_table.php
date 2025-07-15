@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('descripcion');
             $table->string('telefono');
             $table->string('email')->unique();
+             $table->string('especialidad')->nullable();
             $table->timestamps();
         });
     }

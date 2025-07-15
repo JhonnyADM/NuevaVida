@@ -10,6 +10,7 @@
             <p><strong>Apellido:</strong> {{ $personal->apellido }}</p>
             <p><strong>Teléfono:</strong> {{ $personal->telefono }}</p>
             <p><strong>Tipo:</strong> {{ ucfirst($personal->tipo) }}</p>
+            
         </div>
     </div>
 

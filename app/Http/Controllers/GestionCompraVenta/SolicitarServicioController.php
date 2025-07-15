@@ -74,6 +74,7 @@ class SolicitarServicioController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'cliente_id' => 'required|exists:cliente,id',
             'atencion_id' => 'required|exists:atencion,id',
@@ -83,7 +84,9 @@ class SolicitarServicioController extends Controller
             'productos' => 'nullable|array',
             'productos.*' => 'exists:producto,id',
             'cantidades' => 'nullable|array',
-            'cantidades.*' => 'integer|min:1'
+            'cantidades.*' => 'integer|min:1',
+            'descripcion' => 'nullable|string|max:255',
+
         ]);
 
         DB::beginTransaction();
@@ -93,11 +96,13 @@ class SolicitarServicioController extends Controller
                 'cliente_id' => $request->cliente_id,
                 'atencion_id' => $request->atencion_id,
                 'mascota_id' => $request->mascota_id,
+                'descripcion' => $request->descripcion,
                 'fecha' => now(),
                 'total' => 0 // se calculará después
             ]);
 
             $total = 0;
+
 
             // 2. Registrar servicios (tabla pivot solicitar_servicio)
             if ($request->has('servicios')) {
@@ -192,6 +197,7 @@ class SolicitarServicioController extends Controller
 
     public function update(Request $request, $id)
     {
+
         $request->validate([
             'mascota_id' => 'required|exists:mascota,id',
             'servicios' => 'required|array|min:1',
@@ -200,10 +206,13 @@ class SolicitarServicioController extends Controller
             'productos.*' => 'exists:producto,id',
             'cantidades' => 'nullable|array',
             'cantidades.*' => 'integer|min:1',
+            'descripcion' => 'nullable|string|max:255',
         ]);
 
         $recibo = Recibo::findOrFail($id);
 
+          $recibo->descripcion = $request->descripcion;
+          $recibo->save();
         // Actualiza la mascota
         $recibo->mascota_id = $request->mascota_id;
         $recibo->save();

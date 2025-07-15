@@ -49,7 +49,9 @@ class Personalcontroller extends Controller
             'nombre'   => $request->nombre,
             'apellido' => $request->apellido,
             'telefono' => $request->telefono,
+              'telefono' => $request->telefono,
             'tipo'     => $request->tipo,
+            'domicilio' => $request->domicilio ?? '',
         ]);
 
         // Según el tipo, guardar datos específicos
@@ -62,7 +64,7 @@ class Personalcontroller extends Controller
                 Cliente::create([
                     'personal_id' => $personal->id,
                     'celular' => $request->celular,
-                    'direccion' => $request->direccion_cliente,
+                    'direccion' => $request->direccion_cliente
                 ]);
                 break;
 
