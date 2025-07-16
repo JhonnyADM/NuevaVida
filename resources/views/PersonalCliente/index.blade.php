@@ -32,8 +32,8 @@
             <table class="table table-bordered table-hover mb-0">
                 <thead class="table-dark">
                     <tr>
-                        <th>Nombre</th>
                         <th>Codigo</th>
+                        <th>Nombre</th>
                         <th>Apellido</th>
                         <th class="text-center" style="width: 35%">Acciones</th>
                     </tr>

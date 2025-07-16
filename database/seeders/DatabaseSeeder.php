@@ -16,22 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        /*$personal = Personal::create([
-            'nombre' => 'Carlos',
-            'apellido' => 'Martínez',
-            'telefono' => '1122334455',
-            'tipo' => 'superadmin',
-        ]);
-
-        // Crear un registro de Usuario relacionado con el Personal creado
-        Usuario::create([
-            'codigo' => '0001',
-            'personal_id' => $personal->id,
-            'password' => bcrypt('adm123456'),
-            'estado' => true,
-        ]);*/
+        
         $this->call(PermissionsFromRoutesSeeder::class);
         $this->call(RolesAndPermissionsSeeder::class);
 

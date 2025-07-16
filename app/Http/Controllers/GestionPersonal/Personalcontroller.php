@@ -51,7 +51,6 @@ class Personalcontroller extends Controller
             'telefono' => $request->telefono,
               'telefono' => $request->telefono,
             'tipo'     => $request->tipo,
-            'domicilio' => $request->domicilio ?? '',
         ]);
 
         // Según el tipo, guardar datos específicos

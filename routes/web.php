@@ -6,6 +6,7 @@ use App\Http\Controllers\GestionCompraVenta\ProductoController;
 use App\Http\Controllers\GestionCompraVenta\ProvedorController;
 use App\Http\Controllers\GestionCompraVenta\ServicioController;
 use App\Http\Controllers\GestionCompraVenta\SolicitarServicioController;
+use App\Http\Controllers\GestionMascota\AdopcionController;
 use App\Http\Controllers\GestionMascota\ControlController;
 use App\Http\Controllers\GestionMascota\ControlInternacionController;
 use App\Http\Controllers\GestionMascota\EstadoController;
@@ -118,10 +119,23 @@ Route::middleware('auth')->group(function () {
 
 
     Route::middleware([VerificarRol::class . ':superadmin|veterinario'])->group(function () {
+        /** Adopciones */
+        Route::resource('adopciones', AdopcionController::class);
+
         Route::resource('cliente', ClienteController::class)->names('cliente');
         Route::resource('tipotratamiento', TipoTratamientoController::class)->names('tipotratamiento');
         // Mascotas del cliente
         // Crear mascota para un cliente específico
+        Route::get('mascota/create', [MascotaController::class, 'crear'])->name('mascota.crear');
+        Route::post('mascota', [MascotaController::class, 'validar'])->name('mascota.validar');
+        Route::get('mascotas', [MascotaController::class, 'mostrar'])->name('mascota.mostrar');
+        Route::get('mascota/{mascota}/edit', [MascotaController::class, 'editar'])->name('mascota.editar');
+        Route::get('mascota/{mascota}/show', [MascotaController::class, 'ver'])->name('mascota.ver');
+        Route::put('mascota/{mascota}', [MascotaController::class, 'actualizar'])->name('mascota.actualizar');
+        Route::delete('mascota/{mascota}', [MascotaController::class, 'eliminar'])->name('mascota.eliminar');
+        /**mascotas con clientes */
+        Route::put('cliente/{cliente}/mascota/{mascota}', [MascotaController::class, 'update'])->name('cliente.mascota.update');
+        Route::delete('cliente/{cliente}/mascota/{mascota}', [MascotaController::class, 'destroy'])->name('cliente.mascota.destroy');
         Route::get('cliente/{cliente}/mascota/create', [MascotaController::class, 'create'])->name('cliente.mascota.create');
         Route::post('cliente/{cliente}/mascota', [MascotaController::class, 'store'])->name('cliente.mascota.store');
         Route::get('cliente/{cliente}/mascotas', [MascotaController::class, 'index'])->name('cliente.mascota.index');
@@ -198,7 +212,7 @@ Route::get('/reporte/historial-clinico/ajax/{mascota_id}', [ReporteHistorialClin
 // Vista directa del historial clínico completo de una mascota (opcional si se usa sin AJAX)
 Route::get('/reporte/historial-clinico/mascota/{mascota_id}', [ReporteHistorialClinicoController::class, 'show'])
     ->name('reporte.historial.show');
-    // Ruta 'dashboard' para evitar errores de redirección
+// Ruta 'dashboard' para evitar errores de redirección
 
 
 Route::get('/asignar-tarea', [AsignacionTareaController::class, 'create'])->name('asignaciones.create');

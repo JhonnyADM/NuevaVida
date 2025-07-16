@@ -21,7 +21,8 @@ return new class extends Migration
             $table->float('peso');
 
             $table->foreignId('raza_id')->constrained('raza');
-            $table->foreignId('cliente_id')->constrained('cliente');
+            $table->foreignId('cliente_id')->nullable()->constrained('cliente')->nullOnDelete();
+
 
             $table->timestamps();
         });

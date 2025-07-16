@@ -380,6 +380,7 @@ return [
             'text'    => 'Gestión de Mascotas',
             'icon'    => 'fas fa-paw',
             'submenu' => [
+
                 [
                     'text' => 'Gestión de Razas',
                     'url'  => 'raza',
@@ -497,6 +498,22 @@ return [
             ],
         ],
 
+        [
+            'text'    => 'Gestión de Adopción',
+            'icon'    => 'fas fa-hand-holding-heart',
+            'submenu' => [
+                [
+                    'text' => 'Mascotas en Adopción',
+                    'url'  => 'mascotas',
+                    'icon' => 'fas fa-dog',
+                ],
+                [
+                    'text' => 'Registro de Adopciones',
+                    'url'  => 'adopciones',
+                    'icon' => 'fas fa-user-check',
+                ],
+            ],
+        ],
 
 
 

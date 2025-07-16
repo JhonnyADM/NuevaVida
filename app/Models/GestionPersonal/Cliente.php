@@ -2,6 +2,7 @@
 
 namespace App\Models\GestionPersonal;
 
+use App\Models\GestionarMascota\Adopcion;
 use App\Models\GestionarMascota\Mascota;
 use App\Models\GestionCompraVenta\Recibo;
 use App\Models\GestionCompraVenta\Servicio;
@@ -31,5 +32,9 @@ class Cliente extends Model
         return $this->belongsToMany(Servicio::class, 'calificacion')
             ->withPivot('valor')
             ->withTimestamps();
+    }
+    public function adopciones()
+    {
+        return $this->hasMany(Adopcion::class);
     }
 }

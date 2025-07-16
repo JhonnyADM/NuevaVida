@@ -21,6 +21,13 @@ class MascotaController extends Controller
 
         return view('GestionarMascota.Mascota.index', compact('mascotas', 'cliente'));
     }
+    public function mostrar()
+    {
+        $mascotas = Mascota::whereNull('cliente_id')->paginate(10);
+
+
+        return view('GestionarMascota.Mascota.mostrar', compact('mascotas'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -29,6 +36,11 @@ class MascotaController extends Controller
     {
         $razas = Raza::all();
         return view('GestionarMascota.Mascota.create', compact('razas', 'cliente'));
+    }
+    public function crear()
+    {
+        $razas = Raza::all();
+        return view('GestionarMascota.Mascota.crear', compact('razas'));
     }
 
 
@@ -58,7 +70,32 @@ class MascotaController extends Controller
             'cliente_id' => $cliente->id, // 👈 asignación directa
         ]);
 
-        return redirect()->route('cliente.index')->with('success', 'Mascota registrada correctamente.');
+        return redirect()->route('mascota.mostrar')->with('success', 'Mascota registrada correctamente.');
+    }
+    public function validar(Request $request)
+    {
+        $request->validate([
+            'nombre' => 'required',
+            'color' => 'required',
+            'descripcion' => 'required',
+            'edad' => 'required|integer',
+            'fecha_nacimiento' => 'required|date',
+            'peso' => 'required|numeric',
+            'raza_id' => 'required|exists:raza,id',
+        ]);
+
+        Mascota::create([
+            'nombre' => $request->nombre,
+            'color' => $request->color,
+            'descripcion' => $request->descripcion,
+            'edad' => $request->edad,
+            'fecha_nacimiento' => $request->fecha_nacimiento,
+            'peso' => $request->peso,
+            'raza_id' => $request->raza_id,
+            'cliente_id' => null,
+        ]);
+
+        return redirect()->route('mascota.mostrar')->with('success', 'Mascota registrada correctamente.');
     }
 
 
@@ -70,6 +107,12 @@ class MascotaController extends Controller
 
         return view('GestionarMascota.Mascota.show', compact('mascota', 'cliente'));
     }
+    public function ver(Mascota $mascota)
+    {
+
+        return view('GestionarMascota.Mascota.ver', compact('mascota'));
+    }
+
 
 
     /**
@@ -80,6 +123,12 @@ class MascotaController extends Controller
         $razas = Raza::all();
         return view('GestionarMascota.Mascota.edit', compact('mascota', 'razas', 'cliente'));
     }
+    public function editar(Mascota $mascota)
+    {
+        $razas = Raza::all();
+        return view('GestionarMascota.Mascota.editar', compact('mascota', 'razas'));
+    }
+
 
 
     /**
@@ -102,6 +151,23 @@ class MascotaController extends Controller
         return redirect()->route('cliente.mascota.index', $cliente->id)
             ->with('success', 'Mascota actualizada correctamente.');
     }
+    public function actualizar(Request $request, Mascota $mascota)
+    {
+        $request->validate([
+            'nombre' => 'required',
+            'color' => 'required',
+            'descripcion' => 'required',
+            'edad' => 'required|integer',
+            'fecha_nacimiento' => 'required|date',
+            'peso' => 'required|numeric',
+            'raza_id' => 'required|exists:raza,id',
+        ]);
+
+        $mascota->update($request->all());
+
+        return redirect()->route('mascota.mostrar')
+            ->with('success', 'Mascota actualizada correctamente.');
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -110,6 +176,12 @@ class MascotaController extends Controller
     {
         $mascota->delete();
         return redirect()->route('cliente.mascota.index', $cliente->id)
+            ->with('success', 'Mascota eliminada.');
+    }
+     public function eliminar( Mascota $mascota)
+    {
+        $mascota->delete();
+        return redirect()->route('mascota.mostrar')
             ->with('success', 'Mascota eliminada.');
     }
 }
