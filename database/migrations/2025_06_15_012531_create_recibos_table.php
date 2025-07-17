@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('atencion_id')->constrained('atencion')->onDelete('cascade');
             $table->foreignId('mascota_id')->constrained('mascota')->onDelete('cascade');
-             $table->foreignId('cliente_id')->constrained('cliente')->onDelete('cascade');
+            $table->foreignId('cliente_id')->constrained('cliente')->onDelete('cascade');
+            $table->foreignId('promocion_id')->nullable()->constrained('promocion')->onDelete('set null');
             $table->date('fecha');
             $table->decimal('total', 10, 2)->default(0);
             $table->string('descripcion');

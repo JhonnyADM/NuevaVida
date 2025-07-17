@@ -31,4 +31,8 @@ class Servicio extends Model
             ->withPivot('valor')
             ->withTimestamps();
     }
+    public function promociones()
+    {
+        return $this->belongsToMany(Promocion::class, 'promocion_servicio');
+    }
 }

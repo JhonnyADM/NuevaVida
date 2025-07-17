@@ -452,6 +452,13 @@ return [
                     'url'  => 'servicio',
                     'icon' => 'fas fa-box-open', // Ícono relacionado a servicios o facturación
                 ],
+                [
+                    'text' => 'Gestión de Promociones',
+                    'url'  => 'promociones',
+                    'icon' => 'fas fa-tags', // Ícono más representativo de promociones y descuentos
+                    'label_color' => 'success',
+                ],
+
 
             ],
         ],

@@ -7,6 +7,7 @@ use App\Models\GestionarMascota\Mascota;
 use Illuminate\Support\Facades\DB;
 use App\Models\GestionCompraVenta\Detalle;
 use App\Models\GestionCompraVenta\Producto;
+use App\Models\GestionCompraVenta\Promocion;
 use App\Models\GestionCompraVenta\Recibo;
 use App\Models\GestionCompraVenta\Servicio;
 use App\Models\GestionCompraVenta\SolicitarServicio;
@@ -64,8 +65,9 @@ class SolicitarServicioController extends Controller
         $mascotas = $cliente->mascotas()->get();
         $productos = Producto::all();
         $servicios = Servicio::all();
+        $promociones = Promocion::with('servicios')->where('estado', 'activo')->get();
 
-        return view('gestioncompraventa.solicitarservicio.create', compact('cliente', 'mascotas', 'productos', 'servicios', 'atencion'));
+        return view('gestioncompraventa.solicitarservicio.create', compact('cliente', 'mascotas', 'productos', 'servicios', 'atencion', 'promociones'));
     }
 
 
@@ -74,7 +76,6 @@ class SolicitarServicioController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'cliente_id' => 'required|exists:cliente,id',
             'atencion_id' => 'required|exists:atencion,id',
@@ -85,26 +86,32 @@ class SolicitarServicioController extends Controller
             'productos.*' => 'exists:producto,id',
             'cantidades' => 'nullable|array',
             'cantidades.*' => 'integer|min:1',
+            'promocion_id' => 'nullable|exists:promocion,id',
             'descripcion' => 'nullable|string|max:255',
-
         ]);
 
         DB::beginTransaction();
         try {
-            // 1. Crear el recibo vacío
+            $total = 0;
+            $promocion = null;
+
+            if ($request->filled('promocion_id')) {
+                $promocion = Promocion::with('servicios')->findOrFail($request->promocion_id);
+                $total += $promocion->total_a_pagar;
+            }
+
             $recibo = Recibo::create([
                 'cliente_id' => $request->cliente_id,
                 'atencion_id' => $request->atencion_id,
                 'mascota_id' => $request->mascota_id,
+                'promocion_id' => $promocion->id ?? null,
                 'descripcion' => $request->descripcion,
                 'fecha' => now(),
-                'total' => 0 // se calculará después
+                'total' => 0
             ]);
 
-            $total = 0;
 
-
-            // 2. Registrar servicios (tabla pivot solicitar_servicio)
+            // Servicios adicionales seleccionados
             if ($request->has('servicios')) {
                 foreach ($request->servicios as $servicioId) {
                     $servicio = Servicio::findOrFail($servicioId);
@@ -117,7 +124,7 @@ class SolicitarServicioController extends Controller
                 }
             }
 
-            // 3. Registrar productos (tabla pivot detalle)
+            // Productos usados
             if ($request->has('productos')) {
                 foreach ($request->productos as $index => $productoId) {
                     $cantidad = intval($request->cantidades[$index] ?? 1);
@@ -125,7 +132,6 @@ class SolicitarServicioController extends Controller
                     $subtotal = $producto->precio * $cantidad;
                     $total += $subtotal;
 
-                    // Puedes usar attach si tienes relación belongsToMany
                     $recibo->productos()->attach($producto->id, [
                         'cantidad' => $cantidad,
                         'subtotal' => $subtotal,
@@ -133,7 +139,7 @@ class SolicitarServicioController extends Controller
                 }
             }
 
-            // 4. Actualizar total en el recibo
+            // Actualizar total final
             $recibo->update(['total' => $total]);
 
             DB::commit();
@@ -172,88 +178,122 @@ class SolicitarServicioController extends Controller
      */
     // Importa modelos arriba del controlador
 
-
     public function edit($id)
     {
-        // Carga el recibo con las relaciones servicios y productos (detalle)
         $recibo = Recibo::with([
             'mascota',
-            'cliente',
+            'cliente.mascotas',
             'servicios',
-            'productos'  // productos con pivot cantidad y subtotal
+            'productos',
+            'promocion.servicios'
         ])->findOrFail($id);
 
-        // Todas las mascotas del cliente para el select
         $mascotas = $recibo->cliente->mascotas ?? collect();
-
-        // Todos los servicios y productos para seleccionar
         $servicios = Servicio::all();
         $productos = Producto::all();
+        $promociones = Promocion::with('servicios')->where('estado', 'activo')->get();
 
-        return view('gestioncompraventa.solicitarservicio.edit', compact('recibo', 'mascotas', 'servicios', 'productos'));
+        return view('gestioncompraventa.solicitarservicio.edit', compact(
+            'recibo',
+            'mascotas',
+            'servicios',
+            'productos',
+            'promociones'
+        ));
     }
+
+
+
 
 
 
     public function update(Request $request, $id)
     {
-
         $request->validate([
-            'mascota_id' => 'required|exists:mascota,id',
-            'servicios' => 'required|array|min:1',
-            'servicios.*' => 'exists:servicio,id',
-            'productos' => 'nullable|array',
-            'productos.*' => 'exists:producto,id',
-            'cantidades' => 'nullable|array',
-            'cantidades.*' => 'integer|min:1',
-            'descripcion' => 'nullable|string|max:255',
+            'mascota_id'             => 'required|exists:mascota,id',
+            'promocion_id'           => 'nullable|exists:promocion,id',
+            'descripcion'            => 'nullable|string|max:255',
+            'servicios_adicionales'  => 'nullable|array',
+            'servicios_adicionales.*' => 'exists:servicio,id',
+            'productos'              => 'nullable|array',
+            'productos.*'            => 'exists:producto,id',
+            'cantidades'             => 'nullable|array',
+            'cantidades.*'           => 'integer|min:1',
         ]);
 
-        $recibo = Recibo::findOrFail($id);
+        DB::beginTransaction();
+        try {
+            $recibo = Recibo::findOrFail($id);
 
-          $recibo->descripcion = $request->descripcion;
-          $recibo->save();
-        // Actualiza la mascota
-        $recibo->mascota_id = $request->mascota_id;
-        $recibo->save();
+            // 🔄 Actualizar datos básicos
+            $recibo->update([
+                'mascota_id'   => $request->mascota_id,
+                'descripcion'  => $request->descripcion,
+                'promocion_id' => $request->promocion_id,
+            ]);
 
-        // Sincroniza servicios (tabla pivote solicitar_servicio)
-        $recibo->servicios()->sync($request->servicios);
+            // 🔄 Limpiar asociaciones antiguas
+            $recibo->servicios()->detach();
+            $recibo->productos()->detach();
 
-        // Actualiza productos con cantidades y subtotal (tabla pivote detalle)
-        // Sincronizar muchos a muchos con campos adicionales requiere formato especial
-        $productosSync = [];
+            $totalServiciosAdicionales = 0;
+            $totalProductos = 0;
+            $totalPromocion = 0;
 
-        if ($request->productos && $request->cantidades) {
-            foreach ($request->productos as $index => $producto_id) {
-                $cantidad = $request->cantidades[$index] ?? 0;
-                if ($cantidad > 0) {
-                    $producto = Producto::find($producto_id);
-                    if ($producto) {
+            // ✅ Registrar servicios adicionales
+            if ($request->has('servicios_adicionales')) {
+                foreach ($request->servicios_adicionales as $servicioId) {
+                    $servicio = Servicio::findOrFail($servicioId);
+                    $totalServiciosAdicionales += $servicio->precio;
+
+                    $recibo->servicios()->attach($servicio->id);
+                }
+            }
+
+            // ✅ Registrar productos utilizados
+            $productosSync = [];
+            if ($request->productos && $request->cantidades) {
+                foreach ($request->productos as $i => $productoId) {
+                    $cantidad = $request->cantidades[$i] ?? 0;
+                    if ($cantidad > 0) {
+                        $producto = Producto::findOrFail($productoId);
                         $subtotal = $producto->precio * $cantidad;
-                        $productosSync[$producto_id] = [
-                            'cantidad' => $cantidad,
-                            'subtotal' => $subtotal,
+                        $totalProductos += $subtotal;
+
+                        $productosSync[$productoId] = [
+                            'cantidad'   => $cantidad,
+                            'subtotal'   => $subtotal,
                             'created_at' => now(),
                             'updated_at' => now(),
                         ];
                     }
                 }
+
+                if (!empty($productosSync)) {
+                    $recibo->productos()->sync($productosSync);
+                }
             }
+
+            // ✅ Total por promoción (si aplica)
+            if ($request->filled('promocion_id')) {
+                $promocion = Promocion::findOrFail($request->promocion_id);
+                $totalPromocion = $promocion->total_a_pagar;
+            }
+
+            // ✅ Actualizar el total general del recibo
+            $recibo->update([
+                'total' => $totalServiciosAdicionales + $totalProductos + $totalPromocion,
+            ]);
+
+            DB::commit();
+            return redirect()->route('solicitar-servicio.index')->with('success', 'Recibo actualizado correctamente.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->withInput()->with('error', 'Error al actualizar recibo: ' . $e->getMessage());
         }
-
-        // Si productosSync no está vacío, sincroniza con tabla pivote 'detalle', sino desvincula todos productos
-        $recibo->productos()->sync($productosSync);
-
-        // Recalcular y guardar el total en recibo
-        $totalServicios = $recibo->servicios->sum('precio');
-        $totalProductos = collect($productosSync)->sum('subtotal');
-        $recibo->total = $totalServicios + $totalProductos;
-        $recibo->save();
-
-        return redirect()->route('solicitar-servicio.index')
-            ->with('success', 'Atención actualizada correctamente.');
     }
+
+
 
 
 

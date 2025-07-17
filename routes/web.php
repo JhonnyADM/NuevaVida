@@ -3,6 +3,7 @@
 use App\Http\Controllers\GestionCompraVenta\CategoriaController;
 use App\Http\Controllers\GestionCompraVenta\NotaIngresoController;
 use App\Http\Controllers\GestionCompraVenta\ProductoController;
+use App\Http\Controllers\GestionCompraVenta\PromocionController;
 use App\Http\Controllers\GestionCompraVenta\ProvedorController;
 use App\Http\Controllers\GestionCompraVenta\ServicioController;
 use App\Http\Controllers\GestionCompraVenta\SolicitarServicioController;
@@ -87,6 +88,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('producto', ProductoController::class)->names('producto');
         Route::resource('nota_ingreso', NotaIngresoController::class)->names('nota_ingreso');
         Route::resource('servicio', ServicioController::class)->names('servicio');
+        /**promocion */
+        Route::resource('promociones', PromocionController::class)->names('promociones');
         Route::prefix('solicitar-servicio')->group(function () {
             // Vista para seleccionar cliente
             Route::get('/seleccionar-cliente', [SolicitarServicioController::class, 'solicitarServicio'])
