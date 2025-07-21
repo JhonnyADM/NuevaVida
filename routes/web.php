@@ -32,6 +32,7 @@ use App\Http\Controllers\GestionReportes\ReporteProductosVencidosController;
 use App\Http\Controllers\GestionReportes\ReporteServicioRealizadosController;
 use App\Http\Controllers\GestionTareaCalficacion\AsignacionTareaController;
 use App\Http\Controllers\GestionTareaCalficacion\CalificacionController;
+use App\Http\Controllers\GestionTareacalficacion\CalificacionPersonalController;
 use App\Http\Controllers\GestionTareaCalficacion\TareaController;
 use App\Http\Controllers\GestionUsuario\RolPermisoController;
 use App\Http\Controllers\PanelController;
@@ -54,6 +55,7 @@ Route::get('/panel', [PanelController::class, 'index'])
     ->name('panel');
 Route::middleware('auth')->group(function () {
 
+    Route::post('calificaciones', [CalificacionPersonalController::class, 'store'])->name('calificaciones.store');
 
     //roles y permisos
     Route::middleware([VerificarRol::class . ':superadmin'])->group(function () {
@@ -71,6 +73,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::middleware([VerificarRol::class . ':superadmin|atencion'])->group(function () {
+
+        /**calificaiones de personal  */
+         Route::get('calificaciones', [CalificacionPersonalController::class, 'index'])->name('calificaciones.index');
+        Route::get('calificaciones/{id}', [CalificacionPersonalController::class, 'show'])->name('calificaciones.show');
+        Route::delete('calificaciones/{id}', [CalificacionPersonalController::class, 'destroy'])->name('calificaciones.destroy');
         // Gestión de todo el personal general
         Route::resource('personal', Personalcontroller::class);
         // Subgrupo para tipos específicos de personal
@@ -194,7 +201,7 @@ Route::middleware('auth')->group(function () {
                 Route::delete('{control}', [ControlInternacionController::class, 'destroy'])->name('destroy');
             });
     });
-    Route::post('/calificacion', [CalificacionController::class, 'store'])->name('calificacion.store');
+    Route::post('calificacion', [CalificacionController::class, 'store'])->name('calificacion.store');
     Route::get('/reporte/calificaciones', [ReporteCalificacionController::class, 'index'])
         ->middleware(['auth'])
         ->name('reporte.calificaciones');

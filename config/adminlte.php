@@ -657,7 +657,7 @@ return [
             ],
             [
                 'text' => 'Calificaciones',
-                'url'  => 'calificacion',
+                'url'  => 'calificaciones',
                 'icon' => 'fas fa-star',
             ],
         ],
