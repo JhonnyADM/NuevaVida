@@ -257,7 +257,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'panel',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -298,7 +298,7 @@ return [
     |
     */
 
-    'menu' => [
+
         // Navbar items:
         [
             'type' => 'navbar-search',
@@ -537,7 +537,231 @@ return [
 
 
 
+    'menu' => [
+
+    // Navbar search
+    [
+        'type' => 'navbar-search',
+        'text' => 'Buscar',
+        'topnav_right' => true,
     ],
+
+    // Sidebar search
+    [
+        'type' => 'sidebar-menu-search',
+        'text' => 'Buscar...',
+    ],
+
+    // Roles y permisos
+    [
+        'text' => 'Gestión de Roles y Permisos',
+        'url'  => 'roles',
+        'icon' => 'fas fa-user-shield',
+    ],
+
+    // Gestión de Personal
+    [
+        'text' => 'GESTIÓN DE PERSONAL',
+        'icon' => 'fas fa-users-cog',
+        'submenu' => [
+            [
+                'text' => 'Registro Personal',
+                'url'  => 'personal',
+                'icon' => 'fas fa-id-card',
+            ],
+            [
+                'text' => 'Gestión Personal Médico',
+                'url'  => 'medico',
+                'icon' => 'fas fa-user-md',
+            ],
+            [
+                'text' => 'Gestión Especialidad Médica',
+                'url'  => 'especialidad',
+                'icon' => 'fas fa-stethoscope',
+            ],
+            [
+                'text' => 'Gestión Personal Atención',
+                'url'  => 'atencion',
+                'icon' => 'fas fa-headset',
+            ],
+            [
+                'text' => 'Gestión Personal Pasante',
+                'url'  => 'pasante',
+                'icon' => 'fas fa-user-graduate',
+            ],
+            [
+                'text' => 'Gestión Personal Voluntario',
+                'url'  => 'voluntario',
+                'icon' => 'fas fa-hands-helping',
+            ],
+            [
+                'text' => 'Gestión Personal Cliente',
+                'url'  => 'cliente',
+                'icon' => 'fas fa-user',
+            ],
+            [
+                'text' => 'Gestión de Áreas de Trabajo',
+                'url'  => 'area',
+                'icon' => 'fas fa-th-large',
+            ],
+            [
+                'text' => 'Gestión de Turnos de Trabajo',
+                'url'  => 'turno',
+                'icon' => 'fas fa-clock',
+            ],
+            [
+                'text' => 'Asignación de Áreas y Turnos',
+                'url'  => 'asignacionesturnos',
+                'icon' => 'fas fa-exchange-alt',
+            ],
+        ],
+    ],
+
+    // Gestión de Mascotas
+    [
+        'text' => 'Gestión de Mascotas',
+        'icon' => 'fas fa-paw',
+        'submenu' => [
+            [
+                'text' => 'Gestión de Razas',
+                'url'  => 'raza',
+                'icon' => 'fas fa-dog',
+            ],
+            [
+                'text' => 'Gestión de Estados',
+                'url'  => 'estado',
+                'icon' => 'fas fa-heartbeat',
+            ],
+            [
+                'text' => 'Tipos de Tratamientos',
+                'url'  => 'tipotratamiento',
+                'icon' => 'fas fa-notes-medical',
+            ],
+        ],
+    ],
+
+    // Tareas y Calificación
+    [
+        'text' => 'Gestión de Tareas y Calificación',
+        'icon' => 'fas fa-tasks',
+        'submenu' => [
+            [
+                'text' => 'Listado de Tareas',
+                'url'  => 'tarea',
+                'icon' => 'fas fa-list-check',
+            ],
+            [
+                'text' => 'Asignación de Tareas',
+                'url'  => 'asignar-tarea',
+                'icon' => 'fas fa-user-plus',
+            ],
+            [
+                'text' => 'Calificaciones',
+                'url'  => 'calificacion',
+                'icon' => 'fas fa-star',
+            ],
+        ],
+    ],
+
+    // Compra y Venta
+    [
+        'text' => 'Gestión de Compra y Venta',
+        'icon' => 'fas fa-shopping-cart',
+        'submenu' => [
+            [
+                'text' => 'Listado de Proveedores',
+                'url'  => 'provedor',
+                'icon' => 'fas fa-truck-loading',
+            ],
+            [
+                'text' => 'Listado de Categorías',
+                'url'  => 'categoria',
+                'icon' => 'fas fa-tags',
+            ],
+            [
+                'text' => 'Gestión de Productos',
+                'url'  => 'producto',
+                'icon' => 'fas fa-boxes',
+            ],
+            [
+                'text' => 'Notas de Ingreso',
+                'url'  => 'nota_ingreso',
+                'icon' => 'fas fa-file-invoice-dollar',
+            ],
+            [
+                'text' => 'Gestión de Servicios',
+                'url'  => 'servicio',
+                'icon' => 'fas fa-toolbox',
+            ],
+            [
+                'text' => 'Promociones',
+                'url'  => 'promociones',
+                'icon' => 'fas fa-bullhorn',
+            ],
+        ],
+    ],
+
+    // Reportes
+    [
+        'text' => 'Reportes',
+        'icon' => 'fas fa-chart-bar',
+        'submenu' => [
+            [
+                'text' => 'Productos Vencidos - General',
+                'url'  => 'reporte/productos-vencidos',
+                'icon' => 'fas fa-calendar-times',
+            ],
+            [
+                'text' => 'Productos Vencidos por Categoría',
+                'url'  => 'reporte/productos-vencidos/categoria',
+                'icon' => 'fas fa-layer-group',
+            ],
+            [
+                'text' => 'Reporte de Calificaciones',
+                'url'  => 'reporte/calificaciones',
+                'icon' => 'fas fa-star',
+            ],
+            [
+                'text' => 'Servicios Realizados',
+                'url'  => 'reporte/servicios-realizados',
+                'icon' => 'fas fa-tools',
+            ],
+            [
+                'text' => 'Historial Clínico',
+                'url'  => 'reporte/historial-clinico/seleccionar-cliente',
+                'icon' => 'fas fa-notes-medical',
+            ],
+            [
+                'text' => 'Tareas por Pasante',
+                'url'  => 'asignaciones/pasantes',
+                'icon' => 'fas fa-user-graduate',
+            ],
+            [
+                'text' => 'Tareas por Voluntario',
+                'url'  => 'asignaciones/voluntarios',
+                'icon' => 'fas fa-hands-helping',
+            ],
+        ],
+    ],
+
+    // Adopciones
+    [
+        'text' => 'Gestión de Adopción',
+        'icon' => 'fas fa-hand-holding-heart',
+        'submenu' => [
+            [
+                'text' => 'Mascotas en Adopción',
+                'url'  => 'mascotas',
+                'icon' => 'fas fa-dog',
+            ],
+            [
+                'text' => 'Registro de Adopciones',
+                'url'  => 'adopciones',
+                'icon' => 'fas fa-user-check',
+            ],
+        ],
+    ],
+],
 
     /*
     |--------------------------------------------------------------------------
