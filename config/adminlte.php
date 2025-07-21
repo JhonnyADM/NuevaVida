@@ -369,8 +369,21 @@ return [
                     'text' => 'Gestión Personal Cliente',
                     'icon' => 'fas fa-user',
                     'url'  => 'cliente',
-
-
+                ],
+                [
+                    'text' => 'Gestión de Areas de trabajo',
+                    'icon' => 'fas fa-area',
+                    'url'  => 'area',
+                ],
+                [
+                    'text' => 'Gestión de Turnos de trabajo',
+                    'icon' => 'fas fa-turno',
+                    'url'  => 'turno',
+                ],
+                 [
+                    'text' => 'Asigancion de Aras y turnos de Trabajo',
+                    'icon' => 'fas fa-asianacion',
+                    'url'  => 'asignacionesturnos',
                 ],
 
 

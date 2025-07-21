@@ -19,4 +19,17 @@ class Atencion extends Model
     {
         return $this->hasMany(Recibo::class);
     }
+    public function areas()
+    {
+        return $this->belongsToMany(Area::class, 'area_personal_turno')
+            ->withPivot('turno_id')
+            ->withTimestamps();
+    }
+
+    public function turnos()
+    {
+        return $this->belongsToMany(Turno::class, 'area_personal_turno')
+            ->withPivot('area_id')
+            ->withTimestamps();
+    }
 }

@@ -16,12 +16,15 @@ use App\Http\Controllers\GestionMascota\MascotaController;
 use App\Http\Controllers\GestionMascota\RazaController;
 use App\Http\Controllers\GestionMascota\TipoTratamientoController;
 use App\Http\Controllers\GestionMascota\TratamientoController;
+use App\Http\Controllers\GestionPersonal\AreaController;
+use App\Http\Controllers\GestionPersonal\AreaPersonalTurnoController;
 use App\Http\Controllers\GestionPersonal\AtencionController;
 use App\Http\Controllers\GestionPersonal\ClienteController;
 use App\Http\Controllers\GestionPersonal\EspecialidadController;
 use App\Http\Controllers\GestionPersonal\MedicoController;
 use App\Http\Controllers\GestionPersonal\PasanteController;
 use App\Http\Controllers\GestionPersonal\Personalcontroller;
+use App\Http\Controllers\GestionPersonal\TurnoController;
 use App\Http\Controllers\GestionPersonal\VoluntarioController;
 use App\Http\Controllers\GestionReportes\ReporteCalificacionController;
 use App\Http\Controllers\GestionReportes\ReporteHistorialClinicoController;
@@ -118,6 +121,14 @@ Route::middleware('auth')->group(function () {
             Route::get('/{id}/edit', [SolicitarServicioController::class, 'edit'])->name('solicitar-servicio.edit');
             Route::put('/{id}', [SolicitarServicioController::class, 'update'])->name('solicitar-servicio.update');
         });
+
+        /**Gestion areas */
+        Route::resource('area', AreaController::class)->names('area');
+        /**Gestion turnos */
+        Route::resource('turno', TurnoController::class)->names('turno');
+        /**Asignaciones de personal a areas y turnos */
+        Route::resource('asignacionesturnos', AreaPersonalTurnoController::class)
+            ->parameters(['asignacionesturnos' => 'asignacione']);
     });
 
 
